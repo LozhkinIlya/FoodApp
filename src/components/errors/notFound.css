@@ -1,0 +1,18 @@
+.NotFound {
+    color: white;
+    font-size: 30px;
+    margin: 40vh auto auto auto;
+    text-align: center;
+}
+
+.NotFound p {
+    margin: 0;
+}
+
+.Back {
+    margin: 20px 0 0 auto;
+    font-size: 14px;
+    padding: 13px 40px;
+    background-color: #D58C51;
+    border: 0;
+}

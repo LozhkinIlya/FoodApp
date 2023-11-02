@@ -1,0 +1,12 @@
+.Out-btn {
+    cursor: pointer;
+    height: 42px;
+    border: 1px solid;
+    border-color: #D58C51;
+    background-color: #161516;
+    color: #D58C51;
+    font-size: 14px;
+    font-weight: 400;
+    padding: 12px 76px;
+    margin: 5px 0 auto 22px;
+}

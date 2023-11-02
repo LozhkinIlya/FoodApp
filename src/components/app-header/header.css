@@ -1,0 +1,45 @@
+.Header {
+    padding: 48px 70px;
+    color: rgba(255, 255, 255, 1);
+    display: flex;
+    background-color: rgba(22, 21, 22, 1);
+}
+
+.Header-title {
+    margin: auto 0;
+    font-size: 31px;
+    font-weight: 700;
+}
+
+.Header-cart {
+    margin: auto 0 auto auto;
+    font-size: 17px;
+}
+
+p {
+    margin: 0 3px;
+}
+
+.product2, .product3 {
+    display: none;
+}
+
+.Header-cart__count {
+    display: flex;
+    justify-content: flex-end;
+    margin: 0 20px;
+}
+
+.Header-cart__content {
+    display: flex;
+    margin: 0 20px;
+}
+
+.Header-cart__button {
+    height: 50px;
+    min-width: 50px;
+    background-color: #D58C51;
+    border: 0;
+    border-radius: 50%;
+    cursor: pointer;
+}
