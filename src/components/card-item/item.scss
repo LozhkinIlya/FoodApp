@@ -1,0 +1,129 @@
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
+.Item {
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  min-height: 420px;
+  border: 1px solid $color-border;
+  color: $color-text;
+  font-size: $font-size-base;
+  font-weight: $font-weight-normal;
+  padding: $spacing-xl $spacing-md 80px;
+  box-sizing: border-box;
+  margin: 0;
+  cursor: pointer;
+
+  &-title,
+  &-price {
+    font-size: $font-size-md;
+    font-weight: $font-weight-medium;
+  }
+
+  &-title {
+    margin: $spacing-md 0 $spacing-xs;
+  }
+
+  &-bottom {
+    position: absolute;
+    bottom: $spacing-xl;
+    left: $spacing-md;
+    display: flex;
+    align-items: center;
+  }
+
+  &-btn {
+    position: absolute;
+    right: $spacing-md;
+    bottom: $spacing-lg;
+    height: 36px;
+    min-width: 36px;
+    background-color: transparent;
+    border: 1px solid $color-text;
+    border-radius: 50%;
+    color: $color-text;
+    padding: $spacing-xs;
+    cursor: pointer;
+  }
+
+  &-description {
+    margin: 0;
+    font-size: $font-size-sm;
+    line-height: 1.4;
+    color: $color-text-secondary;
+    @include truncate-text(3);
+    min-height: 3.9em;
+  }
+
+  @include respond-to(sm) {
+    max-width: $card-max-width;
+    min-height: 460px;
+    padding: 28px $spacing-lg 90px;
+
+    &-title,
+    &-price {
+      font-size: $font-size-lg;
+    }
+
+    &-description {
+      min-height: 4.2em;
+    }
+  }
+
+  @include respond-to(lg) {
+    height: 552px;
+    padding: 43px 21px $spacing-2xl;
+    margin: 27px 10px $spacing-xs;
+
+    &-title {
+      margin: 31px auto 13px;
+    }
+
+    &-bottom {
+      bottom: 36px;
+      left: 21px;
+    }
+
+    &-btn {
+      right: 21px;
+      bottom: $spacing-2xl;
+      height: 30px;
+      min-width: 30px;
+      padding: 7px;
+    }
+
+    &-description {
+      min-height: 4.5em;
+    }
+  }
+
+  @include hover-supported {
+    &:hover {
+      .Item-btn {
+        color: $color-accent;
+        background-color: $color-accent;
+        border-color: $color-accent;
+      }
+
+      .Item-title,
+      .Slash,
+      .Item-price,
+      .Item-weight {
+        color: $color-accent;
+      }
+
+      .Item-description {
+        color: $color-accent;
+      }
+    }
+  }
+}
+
+.Slash {
+  margin: 0 3px;
+}
+
+.Hide-cart-text {
+  display: none;
+}

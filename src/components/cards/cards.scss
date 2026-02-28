@@ -1,0 +1,31 @@
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
+.Cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: $spacing-md;
+  margin: 0;
+  padding: $spacing-md;
+  min-height: 400px;
+  overflow-y: auto;
+
+  @include respond-to(sm) {
+    padding: $spacing-xl;
+    gap: $spacing-lg;
+  }
+
+  @include respond-to(md) {
+    padding: $spacing-2xl $spacing-3xl;
+    gap: $spacing-xl;
+    margin: 0 0 40px;
+  }
+
+  @include respond-to(lg) {
+    padding: 0 60px;
+    margin: 0 0 59px;
+    gap: 0;
+    height: calc(100vh - #{$header-height} - 67px);
+  }
+}

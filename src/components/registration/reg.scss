@@ -1,0 +1,22 @@
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
+.Main,
+.Background {
+  background-image: url('../../../public/img/background.svg');
+  min-height: 100vh;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  @include flex-center;
+  padding: $spacing-md;
+  box-sizing: border-box;
+
+  @include respond-to(sm) {
+    padding: $spacing-xl;
+  }
+
+  @include respond-to(md) {
+    padding: $spacing-2xl;
+  }
+}

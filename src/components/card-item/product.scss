@@ -1,0 +1,231 @@
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
+.Product {
+  background-image: url(../../../public/img/productBack.svg);
+  min-height: 100vh;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+
+  a {
+    text-decoration: none;
+    color: $color-text;
+  }
+
+}
+
+.Product-item {
+  position: relative;
+  padding: 0 $spacing-md $spacing-xl;
+
+  .Item {
+    height: auto;
+    min-height: auto;
+    max-width: 100%;
+    border: 0;
+    color: $color-text;
+    font-size: $font-size-base;
+    font-weight: $font-weight-normal;
+    padding: 0;
+    margin: 0;
+    cursor: default;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto 1fr;
+    gap: $spacing-md;
+
+    > a {
+      display: contents;
+    }
+
+    &-img {
+      width: 100%;
+      height: auto;
+      max-height: 280px;
+      object-fit: contain;
+      object-position: center;
+      border-radius: 4px;
+      order: 1;
+    }
+
+    &-top {
+      order: 2;
+    }
+
+    &-btn {
+      order: 3;
+    }
+
+    &-title {
+      font-size: 22px;
+      color: $color-accent;
+      margin: 0 0 $spacing-sm;
+      display: block;
+      position: static;
+    }
+
+    &-description {
+      display: block;
+      max-width: 100%;
+      overflow: visible;
+      position: static;
+      height: auto;
+      margin-bottom: $spacing-md;
+      color: $color-text-secondary;
+    }
+
+    &-bottom {
+      position: static;
+      order: 3;
+      display: flex;
+      align-items: center;
+      gap: $spacing-xs;
+    }
+
+    &-price {
+      font-size: $font-size-2xl;
+    }
+
+    &-weight {
+      font-size: $font-size-md;
+    }
+
+    &-btn {
+      position: static;
+      margin-top: $spacing-xs;
+      border-radius: 0;
+      border-color: $color-accent;
+      height: 42px;
+      padding: 0 40px;
+      background-color: $color-accent;
+      color: $color-text-dark;
+    }
+
+    .Hide {
+      display: none;
+    }
+
+    .Hide-cart-text {
+      display: block;
+      color: $color-text-dark;
+    }
+  }
+
+  @include respond-to(sm) {
+    padding: 0 $spacing-xl $spacing-2xl;
+
+    .Item-title {
+      font-size: 26px;
+    }
+
+    .Item-img {
+      max-height: 360px;
+      object-fit: contain;
+    }
+  }
+
+  @include respond-to(md) {
+    padding: 0 $spacing-3xl $spacing-3xl;
+
+    .Item {
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: auto 1fr auto;
+      gap: $spacing-xl;
+      align-items: start;
+
+      &-img {
+        grid-column: 1;
+        grid-row: 1 / -1;
+        max-height: 450px;
+        object-fit: contain;
+        order: unset;
+      }
+
+      &-top {
+        grid-column: 2;
+        grid-row: 1 / 3;
+        order: unset;
+      }
+
+      &-btn {
+        grid-column: 2;
+        grid-row: 3;
+        order: unset;
+      }
+
+      &-title {
+        font-size: $font-size-4xl;
+      }
+
+      &-price {
+        font-size: 22px;
+      }
+    }
+  }
+
+  @include respond-to(lg) {
+    padding: 0 $spacing-4xl 108px 140px;
+
+    .Item {
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: auto;
+      gap: $spacing-4xl;
+      align-items: start;
+      min-height: min(500px, calc(100vh - 200px));
+
+      &-img {
+        grid-column: 1;
+        grid-row: 1;
+        width: 100%;
+        max-height: 500px;
+        height: auto;
+        object-fit: contain;
+        object-position: center;
+        order: unset;
+      }
+
+      &-top {
+        grid-column: 2;
+        grid-row: 1;
+        order: unset;
+        display: flex;
+        flex-direction: column;
+        gap: $spacing-md;
+      }
+
+      &-title {
+        font-size: $font-size-5xl;
+        position: static;
+        max-width: 100%;
+      }
+
+      &-description {
+        position: static;
+        max-width: 100%;
+        flex: 1;
+      }
+
+      &-bottom {
+        position: static;
+      }
+
+      &-btn {
+        position: static;
+        align-self: flex-start;
+        padding: 0 63px;
+      }
+
+      &-price {
+        font-size: 23px;
+        color: $color-text;
+      }
+
+      &-weight {
+        font-size: $font-size-xl;
+        color: $color-text;
+      }
+    }
+  }
+}
+

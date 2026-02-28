@@ -1,0 +1,246 @@
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
+.Cart {
+  color: $color-text;
+  position: relative;
+  padding-bottom: 80px;
+
+  svg {
+    height: 12.5px;
+    width: 12.5px;
+  }
+
+  @include respond-to(lg) {
+    padding-bottom: $cart-footer-height;
+  }
+}
+
+.Cart-header {
+  padding: $spacing-md;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: $spacing-sm;
+  min-height: 80px;
+
+  @include respond-to(sm) {
+    padding: $spacing-lg $spacing-xl;
+  }
+
+  @include respond-to(md) {
+    padding: $spacing-xl $spacing-3xl;
+  }
+
+  @include respond-to(lg) {
+    padding: 0 290px 0 235px;
+    max-height: $header-height;
+  }
+}
+
+.Cart-items {
+  padding: $spacing-md $spacing-md 100px;
+  min-height: 200px;
+  max-height: calc(100vh - 200px);
+  overflow-y: auto;
+
+  @include respond-to(sm) {
+    padding: $spacing-lg $spacing-xl 100px;
+    max-height: calc(100vh - 220px);
+  }
+
+  @include respond-to(md) {
+    padding: $spacing-xl $spacing-3xl 100px;
+  }
+
+  @include respond-to(lg) {
+    padding: 0 290px $spacing-lg;
+    height: calc(100vh - #{$header-height} - #{$cart-footer-height});
+    max-height: none;
+  }
+}
+
+.Cart-back-btn,
+.Cart-delete-btn {
+  height: 36px;
+  min-width: 36px;
+  background-color: transparent;
+  border: 1px solid $color-accent;
+  border-radius: 50%;
+  color: $color-accent;
+  padding: 10px;
+  cursor: pointer;
+  flex-shrink: 0;
+
+  @include respond-to(lg) {
+    height: 32px;
+    min-width: 32px;
+    padding: 8.9px;
+  }
+}
+
+.Cart-title {
+  flex: 1;
+  font-size: $font-size-xl;
+  padding: 0 $spacing-xs;
+  min-width: 0;
+
+  @include respond-to(sm) {
+    font-size: 22px;
+  }
+
+  @include respond-to(lg) {
+    padding: 18px 63px;
+    font-size: $font-size-6xl;
+  }
+}
+
+.Cart-img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  flex-shrink: 0;
+
+  @include respond-to(sm) {
+    width: 100px;
+    height: 100px;
+  }
+
+  @include respond-to(md) {
+    max-width: 122px;
+    width: 122px;
+    height: auto;
+    padding-right: $spacing-xl;
+  }
+
+  @include respond-to(lg) {
+    max-width: 122px;
+    padding-right: 98px;
+  }
+}
+
+.Cart-item {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: $spacing-sm;
+  margin: $spacing-sm 0;
+  padding: $spacing-sm 0;
+  border-bottom: 1px solid rgba(213, 140, 81, 0.3);
+
+  &:last-of-type {
+    border-bottom: none;
+  }
+
+  @include respond-to(lg) {
+    margin: 10px 0 21px;
+    padding: 0;
+    border-bottom: none;
+  }
+}
+
+.Cart-item-title {
+  font-size: 15px;
+  font-weight: $font-weight-medium;
+  flex: 1;
+  min-width: 0;
+
+  @include respond-to(sm) {
+    font-size: $font-size-md;
+  }
+
+  @include respond-to(md) {
+    max-width: 310px;
+  }
+}
+
+.Cart-price,
+.Order-count,
+.Order-p {
+  color: $color-accent;
+  font-weight: $font-weight-normal;
+  font-size: $font-size-md;
+}
+
+.Link-item {
+  display: flex;
+  align-items: center;
+  gap: $spacing-sm;
+  flex: 1;
+  min-width: 0;
+}
+
+.Cart-price {
+  margin: 0;
+}
+
+.Cart-delete-btn {
+  margin: 0;
+}
+
+.Cart-footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: auto;
+  min-height: 80px;
+  box-sizing: border-box;
+  font-weight: $font-weight-normal;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: $spacing-sm;
+  padding: $spacing-md;
+  border-top: 1px solid $color-accent;
+  background-color: $color-bg;
+
+  @include respond-to(sm) {
+    padding: $spacing-lg $spacing-xl;
+  }
+
+  @include respond-to(md) {
+    padding: $spacing-lg $spacing-3xl;
+  }
+
+  @include respond-to(lg) {
+    position: absolute;
+    height: $cart-footer-height;
+    padding: $spacing-lg 290px $spacing-lg;
+  }
+}
+
+.Order {
+  font-size: $font-size-md;
+
+  @include respond-to(lg) {
+    font-size: $font-size-2xl;
+  }
+}
+
+.Order-count {
+  margin: 0 4px 0 0;
+
+  @include respond-to(lg) {
+    margin-left: $spacing-md;
+    margin-right: 3px;
+  }
+}
+
+.Order-btn {
+  margin: 0 0 0 auto;
+  font-size: $font-size-base;
+  padding: 12px $spacing-xl;
+  background-color: $color-accent;
+  border: 0;
+  cursor: pointer;
+  flex-shrink: 0;
+
+  @include respond-to(lg) {
+    padding: 13px 40px;
+  }
+}
+
+.Out-cart-btn {
+  margin: 0 0 0 auto;
+}

@@ -1,0 +1,45 @@
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
+.NotFound {
+  color: $color-text;
+  font-size: $font-size-2xl;
+  min-height: 100vh;
+  @include flex-center;
+  flex-direction: column;
+  text-align: center;
+  padding: $spacing-xl;
+
+  p {
+    margin: 0;
+  }
+}
+
+.Back {
+  margin: $spacing-lg 0 0;
+  font-size: $font-size-base;
+  padding: 12px $spacing-xl;
+  background-color: $color-accent;
+  border: 0;
+  cursor: pointer;
+}
+
+@include respond-to(sm) {
+  .NotFound {
+    font-size: $font-size-3xl;
+  }
+
+  .Back {
+    padding: 13px 32px;
+  }
+}
+
+@include respond-to(md) {
+  .NotFound {
+    font-size: $font-size-5xl;
+  }
+
+  .Back {
+    padding: 13px 40px;
+  }
+}

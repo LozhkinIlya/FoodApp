@@ -1,0 +1,155 @@
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
+.Form {
+  width: 100%;
+  max-width: 460px;
+  background-color: white;
+  position: relative;
+  margin: $spacing-md;
+  padding: $spacing-xl 0;
+
+  &-title {
+    margin: $spacing-xl auto;
+    text-align: center;
+    font-size: $font-size-3xl;
+    font-weight: $font-weight-bold;
+  }
+
+  &-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    position: relative;
+  }
+
+  &-btn {
+    cursor: pointer;
+    font-size: $font-size-base;
+    border-width: 0;
+    background-color: $color-accent;
+    color: $color-text-dark;
+    padding: 12px 48px 13px;
+    margin: $spacing-xl auto;
+    font-weight: $font-weight-normal;
+  }
+}
+
+.Reg {
+  margin: 9px $spacing-lg 0 auto;
+  right: 0;
+  font-size: $font-size-xs;
+  font-weight: $font-weight-light;
+  text-decoration: underline;
+  color: $color-accent;
+  position: absolute;
+}
+
+.Input {
+  border-radius: 61px;
+  border: 1px solid $color-accent;
+  margin: 0 $spacing-lg 15px;
+  font-size: $font-size-md;
+  padding: 0 18px;
+  font-weight: $font-weight-normal;
+  width: calc(100% - 40px);
+  max-width: 380px;
+  height: 44px;
+  box-sizing: border-box;
+}
+
+input::placeholder {
+  padding: 0 18px;
+}
+
+.Invalid-login,
+.Invalid-password,
+.Invalid-form {
+  display: none;
+  position: absolute;
+  font-size: 8px;
+  color: $color-error;
+  font-weight: $font-weight-light;
+
+  &.show {
+    display: block;
+  }
+}
+
+.Invalid-login {
+  top: 40px;
+  left: 38px;
+}
+
+.Invalid-password {
+  top: 95px;
+  left: 38px;
+}
+
+.Invalid-form {
+  bottom: 88px;
+}
+
+.Checkbox {
+  display: flex;
+  align-items: center;
+  margin: 0 auto 0 $spacing-lg;
+}
+
+.Check-text {
+  font-size: $font-size-xs;
+  font-weight: $font-weight-light;
+}
+
+.Checkbox-input {
+  position: absolute;
+  left: 18px;
+  bottom: 107px;
+  opacity: 0;
+  margin: 5px;
+
+  &:checked + label {
+    background-image: url(../../../public/img/point.svg);
+    background-repeat: no-repeat;
+    box-sizing: border-box;
+    background-position: center;
+  }
+}
+
+.Check {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  border: 1px solid $color-accent;
+  border-radius: 18px;
+  margin-right: 9px;
+  box-sizing: border-box;
+}
+
+@include respond-to(sm) {
+  .Form {
+    margin: $spacing-xl;
+    padding: $spacing-2xl 0;
+
+    &-title {
+      font-size: $font-size-4xl;
+      margin: 28px auto;
+    }
+  }
+}
+
+@include respond-to(md) {
+  .Form {
+    margin: $spacing-2xl;
+
+    &-title {
+      font-size: $font-size-6xl;
+      margin: 35.5px auto;
+    }
+
+    &-btn {
+      padding: 12px 77px 13px;
+      margin: 30px auto 34px;
+    }
+  }
+}

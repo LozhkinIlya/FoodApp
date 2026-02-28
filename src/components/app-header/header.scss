@@ -1,0 +1,124 @@
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
+.Header {
+  padding: $spacing-lg $spacing-md $spacing-xl;
+  color: $color-text;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: $spacing-md;
+  background-color: $color-bg;
+
+  &-back-btn {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    margin: 0 $spacing-sm 0 0;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+
+    @include respond-to(lg) {
+      width: 50px;
+      height: 50px;
+    }
+  }
+
+  &-title {
+    margin: 0;
+    font-size: $font-size-2xl;
+    font-weight: $font-weight-bold;
+    flex: 1;
+    min-width: 0;
+    line-height: 1.2;
+  }
+
+  &-cart {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    margin: 0;
+    font-size: $font-size-sm;
+    gap: 2px;
+
+    &__count,
+    &__content {
+      display: flex;
+      justify-content: flex-end;
+      margin: 0;
+      gap: 4px;
+    }
+
+    &__content {
+      margin: 0;
+    }
+
+    &__button {
+      height: 44px;
+      min-width: 44px;
+      background-color: $color-accent;
+      border: 0;
+      border-radius: 50%;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+  }
+
+  p {
+    margin: 0 3px;
+    line-height: 1.3;
+  }
+
+  @include respond-to(sm) {
+    padding: $spacing-2xl $spacing-xl;
+
+    &-title {
+      font-size: $font-size-3xl;
+    }
+
+    &-cart {
+      font-size: $font-size-md;
+    }
+  }
+
+  @include respond-to(md) {
+    padding: 40px $spacing-3xl;
+
+    &-title {
+      font-size: $font-size-4xl;
+    }
+
+    &-cart__count,
+    &-cart__content {
+      margin: 0 $spacing-md;
+    }
+  }
+
+  @include respond-to(lg) {
+    padding: $spacing-3xl $spacing-4xl;
+
+    &-title {
+      font-size: $font-size-6xl;
+    }
+
+    &-cart {
+      font-size: $font-size-lg;
+      margin: auto 0 auto auto;
+
+      &__count,
+      &__content {
+        margin: 0 $spacing-lg;
+      }
+
+      &__button {
+        height: 50px;
+        min-width: 50px;
+      }
+    }
+  }
+}
