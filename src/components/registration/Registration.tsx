@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useState, FormEvent } from 'react';
 import { useAuth } from '../../contexts/AuthContext';
 
-type ValidationError = 'empty_login' | 'short_login' | 'empty_password' | 'short_password' | null;
+type ValidationError = 'empty_login' | 'short_login' | 'empty_password' | 'short_password' | 'api_error' | null;
 
 function Registration() {
   const navigate = useNavigate();
@@ -12,8 +12,9 @@ function Registration() {
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState<ValidationError>(null);
+  const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setError(null);
 
@@ -37,8 +38,15 @@ function Registration() {
       return;
     }
 
-    register({ login: trimmedLogin, password: trimmedPassword });
-    navigate('/autorization');
+    setLoading(true);
+    try {
+      await register(trimmedLogin, trimmedPassword);
+      navigate('/');
+    } catch {
+      setError('api_error');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -95,13 +103,19 @@ function Registration() {
           >
             Пароль должен содержать не менее 3-х символов
           </span>
+          <span
+            className={`Invalid-form ${error === 'api_error' ? 'show' : ''}`}
+            id="Invalid-form"
+          >
+            Логин уже занят
+          </span>
           <div className="Checkbox">
             <input type="checkbox" id="reg-checkbox" className="Checkbox-input" />
             <label htmlFor="reg-checkbox" className="Check" />
             <p className="Check-text">Я согласен получать обновления на почту</p>
           </div>
-          <button type="submit" className="Form-btn">
-            Зарегистрироваться
+          <button type="submit" className="Form-btn" disabled={loading}>
+            {loading ? 'Регистрация...' : 'Зарегистрироваться'}
           </button>
         </form>
       </div>

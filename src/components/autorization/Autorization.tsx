@@ -3,16 +3,17 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useState, FormEvent } from 'react';
 import { useAuth } from '../../contexts/AuthContext';
 
-type ValidationError = 'empty_login' | 'empty_password' | 'invalid_credentials' | null;
+type ValidationError = 'empty_login' | 'empty_password' | 'user_not_found' | 'invalid_credentials' | null;
 
 function Autorization() {
   const navigate = useNavigate();
-  const { login, hasUser } = useAuth();
+  const { login } = useAuth();
   const [loginValue, setLoginValue] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState<ValidationError>(null);
+  const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setError(null);
 
@@ -28,16 +29,14 @@ function Autorization() {
       return;
     }
 
-    if (!hasUser) {
-      setError('invalid_credentials');
-      return;
-    }
+    setLoading(true);
+    const result = await login(trimmedLogin, trimmedPassword);
+    setLoading(false);
 
-    const success = login({ login: trimmedLogin, password: trimmedPassword });
-    if (success) {
+    if (result.success) {
       navigate('/');
     } else {
-      setError('invalid_credentials');
+      setError(result.error === 'user_not_found' ? 'user_not_found' : 'invalid_credentials');
     }
   };
 
@@ -86,13 +85,19 @@ function Autorization() {
           <p className="Check-text">Я согласен получать обновления на почту</p>
         </div>
         <span
+          className={`Invalid-form ${error === 'user_not_found' ? 'show' : ''}`}
+          id="Invalid-form-user"
+        >
+          Пользователь не найден. Пройдите регистрацию
+        </span>
+        <span
           className={`Invalid-form ${error === 'invalid_credentials' ? 'show' : ''}`}
           id="Invalid-form"
         >
           Логин или пароль неверен
         </span>
-        <button type="submit" className="Form-btn">
-          Войти
+        <button type="submit" className="Form-btn" disabled={loading}>
+          {loading ? 'Вход...' : 'Войти'}
         </button>
       </form>
     </div>

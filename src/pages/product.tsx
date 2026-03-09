@@ -1,16 +1,35 @@
 import '../components/card-item/product.scss';
+import { useEffect, useState } from 'react';
 import Header from '../components/app-header';
 import Item from '../components/card-item';
-import { products } from '../services/menuList';
+import { api } from '../services/api';
+import type { Product } from '../types';
 import { useParams, useNavigate } from 'react-router-dom';
+import { useFavorites } from '../contexts/FavoritesContext';
 import NotFound from './notFound';
 
-function Product() {
+function ProductPage() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-  const product = products.find((p) => p.id === Number(id));
+  const { isFavorite, toggleFavorite } = useFavorites();
+  const [product, setProduct] = useState<Product | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [notFound, setNotFound] = useState(false);
 
-  if (!product) {
+  useEffect(() => {
+    if (!id) return;
+    api
+      .fetchProduct(Number(id))
+      .then(setProduct)
+      .catch(() => setNotFound(true))
+      .finally(() => setLoading(false));
+  }, [id]);
+
+  if (loading) {
+    return <div className="Product">Загрузка...</div>;
+  }
+
+  if (notFound || !product) {
     return <NotFound />;
   }
 
@@ -32,15 +51,17 @@ function Product() {
         <Item
           key={product.id}
           id={product.id}
-          url={`../${url}`}
+          url={`/${url}`}
           title={title}
           description={description}
           price={price}
           weight={weight}
+          isFavorite={isFavorite(product.id)}
+          onToggleFavorite={() => toggleFavorite(product.id)}
         />
       </div>
     </div>
   );
 }
 
-export default Product;
+export default ProductPage;

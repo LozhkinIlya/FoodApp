@@ -14,16 +14,17 @@ function getProductCountLabel(count: number): string {
 
 interface HeaderProps {
   leftContent?: React.ReactNode;
+  title?: string;
 }
 
-function Header({ leftContent }: HeaderProps) {
+function Header({ leftContent, title = 'НАША ПРОДУКЦИЯ' }: HeaderProps) {
   const amount = useSelector(selectPriceBasket);
   const count = useSelector(selectCountProducts);
 
   return (
     <div className="Header">
       {leftContent}
-      <h1 className="Header-title">НАША ПРОДУКЦИЯ</h1>
+      <h1 className="Header-title">{title}</h1>
       <div className="Header-cart">
         <div className="Header-cart__count">
           <p>{count}</p>
@@ -35,6 +36,9 @@ function Header({ leftContent }: HeaderProps) {
           <p>₽</p>
         </div>
       </div>
+      <Link to="/profile" className="Header-profile-link">
+        <span className="Header-profile-text">Профиль</span>
+      </Link>
       <Link to="/basket">
         <button className="Header-cart__button">
           <img src="/img/cart.svg" className="Cart-icon" alt="icon" />

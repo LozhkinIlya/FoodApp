@@ -3,6 +3,26 @@
 
 .Item {
   position: relative;
+
+  &-favorite {
+    position: absolute;
+    top: $spacing-md;
+    right: $spacing-md;
+    z-index: 2;
+    background: transparent;
+    border: none;
+    color: $color-text-secondary;
+    cursor: pointer;
+    padding: 4px;
+
+    &:hover {
+      color: $color-accent;
+    }
+
+    &--active {
+      color: $color-accent;
+    }
+  }
   width: 100%;
   max-width: 100%;
   min-height: 420px;

@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { AuthProvider } from './contexts/AuthContext';
+import { FavoritesProvider } from './contexts/FavoritesContext';
 import './index.scss';
 import App from './components/app/App';
 import store from './store';
@@ -16,7 +17,9 @@ root.render(
     <BrowserRouter>
       <Provider store={store}>
         <AuthProvider>
-          <App />
+          <FavoritesProvider>
+            <App />
+          </FavoritesProvider>
         </AuthProvider>
       </Provider>
     </BrowserRouter>

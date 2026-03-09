@@ -1,17 +1,38 @@
 import '../components/cart/cart.scss';
 import { Link, useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import BasketItem from '../components/cart/cart-item';
 import Out from '../components/out-button';
 import { selectBasket, selectPriceBasket } from '../store/selectors';
+import { api } from '../services/api';
+import { clearCart } from '../reducers/basketSlice';
 
 function Basket() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const basket = useSelector(selectBasket);
   const prices = useSelector(selectPriceBasket);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const handleLink = (id: number) => {
     navigate(`/product/${id}`);
+  };
+
+  const handlePlaceOrder = async () => {
+    if (basket.length === 0) return;
+    setLoading(true);
+    setError(null);
+    try {
+      await api.createOrder();
+      dispatch(clearCart());
+      navigate('/');
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Ошибка оформления заказа');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -25,11 +46,9 @@ function Basket() {
           </button>
         </Link>
         <h1 className="Cart-title">КОРЗИНА С ВЫБРАННЫМИ ТОВАРАМИ</h1>
-        <Link to="/registration">
-          <div className="Out-cart-btn">
-            <Out />
-          </div>
-        </Link>
+        <div className="Out-cart-btn">
+          <Out />
+        </div>
       </header>
 
       <div className="Cart-items">
@@ -50,7 +69,14 @@ function Basket() {
         <span className="Order">ЗАКАЗ НА СУММУ:</span>
         <span className="Order-count">{prices}</span>
         <span className="Order-p">₽</span>
-        <button className="Order-btn">Оформить заказ</button>
+        {error && <span className="Cart-error">{error}</span>}
+        <button
+          className="Order-btn"
+          onClick={handlePlaceOrder}
+          disabled={basket.length === 0 || loading}
+        >
+          {loading ? 'Оформление...' : 'Оформить заказ'}
+        </button>
       </footer>
     </div>
   );

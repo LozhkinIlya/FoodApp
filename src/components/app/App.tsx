@@ -3,6 +3,7 @@ import Basket from '../../pages/basket';
 import Products from '../../pages/products';
 import NotFound from '../../pages/notFound';
 import Product from '../../pages/product';
+import Profile from '../../pages/profile';
 import Main from '../../pages/main';
 import Registration from '../registration/Registration';
 import { ProtectedRoute } from '../ProtectedRoute';
@@ -32,6 +33,14 @@ function App() {
           element={
             <ProtectedRoute>
               <Product />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/profile"
+          element={
+            <ProtectedRoute>
+              <Profile />
             </ProtectedRoute>
           }
         />

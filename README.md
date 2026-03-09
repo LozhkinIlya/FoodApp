@@ -1,70 +1,99 @@
-# Getting Started with Create React App
+# FoodApp
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Приложение для заказа еды: React-фронтенд и Go backend с SQLite.
 
-## Available Scripts
+## Стек
 
-In the project directory, you can run:
+| Часть | Технологии |
+|-------|------------|
+| Frontend | React 18, TypeScript, Redux Toolkit, React Router, SCSS |
+| Backend | Go, Gin, GORM |
+| БД | SQLite |
 
-### `npm start`
+## Быстрый старт
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### Требования
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- Node.js 18+
+- Go 1.21+
 
-### `npm test`
+### Запуск
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+1. **Backend** (в первом терминале):
+   ```bash
+   cd backend
+   go mod tidy
+   go run ./cmd/server
+   ```
+   Сервер: http://localhost:8080
 
-### `npm run build`
+2. **Frontend** (во втором терминале):
+   ```bash
+   npm install
+   npm start
+   ```
+   Приложение: http://localhost:3000
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+3. **Конфигурация** — создайте `.env` в корне проекта:
+   ```
+   REACT_APP_API_URL=http://localhost:8080
+   ```
+   Или скопируйте: `cp .env.example .env`
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Структура проекта
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```
+FoodApp/
+├── backend/           # Go API
+│   ├── cmd/server/    # Точка входа
+│   └── internal/      # Модели, handlers, middleware
+├── public/            # Статика (изображения и т.д.)
+├── src/
+│   ├── components/    # React-компоненты
+│   ├── contexts/      # AuthContext
+│   ├── pages/         # Страницы
+│   ├── reducers/      # Redux (корзина)
+│   ├── services/      # API-клиент
+│   └── types/         # TypeScript-типы
+└── .env               # Переменные окружения (не в git)
+```
 
-### `npm run eject`
+## API
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+| Метод | Путь | Описание |
+|-------|------|----------|
+| POST | `/api/auth/register` | Регистрация |
+| POST | `/api/auth/login` | Вход (JWT) |
+| GET | `/api/products` | Список продуктов |
+| GET | `/api/products/:id` | Продукт по ID |
+| GET | `/api/cart` | Корзина (JWT) |
+| POST | `/api/cart` | Добавить в корзину (JWT) |
+| DELETE | `/api/cart/:idx` | Удалить из корзины (JWT) |
+| POST | `/api/orders` | Оформить заказ (JWT) |
+| GET | `/api/orders` | История заказов (JWT) |
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Подробнее: [backend/README.md](backend/README.md)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## Скрипты
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+| Команда | Описание |
+|---------|----------|
+| `npm start` | Запуск dev-сервера |
+| `npm run build` | Сборка для production |
+| `npm test` | Запуск тестов |
 
-## Learn More
+## Переменные окружения
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Frontend (`.env`)
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+| Переменная | Описание |
+|------------|----------|
+| `REACT_APP_API_URL` | URL backend (по умолчанию http://localhost:8080) |
 
-### Code Splitting
+### Backend
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+| Переменная | По умолчанию | Описание |
+|------------|--------------|----------|
+| `PORT` | 8080 | Порт сервера |
+| `DB_PATH` | foodapp.db | Путь к SQLite |
+| `JWT_SECRET` | (dev) | Секрет для JWT |

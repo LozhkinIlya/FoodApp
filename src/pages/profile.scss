@@ -1,0 +1,191 @@
+@use '../styles/variables' as *;
+@use '../styles/mixins' as *;
+
+.Profile {
+  color: $color-text;
+  padding-bottom: 80px;
+
+  @include respond-to(lg) {
+    padding-bottom: $spacing-xl;
+  }
+}
+
+.Profile-back-btn {
+  height: 36px;
+  min-width: 36px;
+  background-color: transparent;
+  border: 1px solid $color-accent;
+  border-radius: 50%;
+  color: $color-accent;
+  padding: 10px;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.Profile-content {
+  padding: $spacing-md;
+
+  @include respond-to(sm) {
+    padding: $spacing-xl;
+  }
+
+  @include respond-to(lg) {
+    padding: $spacing-xl 290px $spacing-xl 235px;
+  }
+}
+
+.Profile-loading {
+  text-align: center;
+  padding: $spacing-3xl;
+}
+
+.Profile-greeting {
+  margin-bottom: $spacing-2xl;
+}
+
+.Profile-title {
+  font-size: $font-size-xl;
+  font-weight: $font-weight-medium;
+  margin: 0 0 $spacing-sm;
+
+  @include respond-to(lg) {
+    font-size: $font-size-6xl;
+  }
+}
+
+.Profile-login {
+  font-size: $font-size-md;
+  color: $color-text-secondary;
+  margin: 0;
+}
+
+.Profile-section-title {
+  font-size: $font-size-lg;
+  font-weight: $font-weight-medium;
+  margin: 0 0 $spacing-md;
+  color: $color-accent;
+
+  @include respond-to(lg) {
+    font-size: $font-size-2xl;
+    margin-bottom: $spacing-lg;
+  }
+}
+
+.Profile-empty {
+  color: $color-text-secondary;
+  font-size: $font-size-base;
+  margin: 0;
+  padding: $spacing-lg 0;
+}
+
+.Profile-orders {
+  margin-bottom: $spacing-2xl;
+}
+
+.Profile-orders-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.Profile-order-item {
+  border: 1px solid rgba(213, 140, 81, 0.3);
+  border-radius: 8px;
+  padding: $spacing-md;
+  margin-bottom: $spacing-md;
+}
+
+.Profile-order-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: $spacing-sm;
+  margin-bottom: $spacing-sm;
+}
+
+.Profile-order-date {
+  font-size: $font-size-sm;
+  color: $color-text-secondary;
+}
+
+.Profile-order-price {
+  color: $color-accent;
+  font-weight: $font-weight-medium;
+  margin-left: auto;
+}
+
+.Profile-order-status {
+  font-size: $font-size-sm;
+  color: $color-text-secondary;
+  text-transform: capitalize;
+}
+
+.Profile-order-cancel {
+  margin-left: auto;
+  font-size: $font-size-sm;
+  padding: $spacing-xs $spacing-sm;
+  background: transparent;
+  border: 1px solid $color-error;
+  color: $color-error;
+  cursor: pointer;
+
+  &:hover:not(:disabled) {
+    background: rgba(255, 11, 11, 0.2);
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
+
+.Profile-order-items {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.Profile-order-product {
+  font-size: $font-size-sm;
+  padding: $spacing-xs 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.Profile-favorites {
+  margin-bottom: $spacing-2xl;
+}
+
+.Profile-favorites-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-md;
+
+  @include respond-to(md) {
+    gap: $spacing-xl;
+  }
+}
+
+.Profile-favorite-card {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-sm;
+  max-width: $card-max-width;
+}
+
+.Profile-remove-fav {
+  font-size: $font-size-sm;
+  padding: $spacing-sm;
+  background: transparent;
+  border: 1px solid $color-accent;
+  color: $color-accent;
+  cursor: pointer;
+  align-self: flex-start;
+
+  &:hover {
+    background: rgba(213, 140, 81, 0.3);
+  }
+}

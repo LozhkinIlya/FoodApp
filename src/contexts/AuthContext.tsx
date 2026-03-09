@@ -1,18 +1,12 @@
 import React, { createContext, useCallback, useContext, useEffect, useState } from 'react';
-import {
-  getStoredUser,
-  isAuthenticated as checkAuth,
-  logout as authLogout,
-  saveUser,
-  setAuthenticated,
-  type UserCredentials,
-} from '../services/authService';
+import { api, setToken, clearToken, isAuthenticated as checkAuth } from '../services/api';
+
+export type LoginError = 'user_not_found' | 'invalid_password';
 
 interface AuthContextValue {
   isAuthenticated: boolean;
-  hasUser: boolean;
-  register: (credentials: UserCredentials) => void;
-  login: (credentials: UserCredentials) => boolean;
+  register: (login: string, password: string) => Promise<void>;
+  login: (login: string, password: string) => Promise<{ success: true } | { success: false; error: LoginError }>;
   logout: () => void;
 }
 
@@ -20,37 +14,39 @@ const AuthContext = createContext<AuthContextValue | null>(null);
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [authenticated, setAuthenticatedState] = useState(checkAuth);
-  const [user, setUser] = useState(getStoredUser);
 
   useEffect(() => {
     setAuthenticatedState(checkAuth());
-    setUser(getStoredUser());
   }, []);
 
-  const register = useCallback((credentials: UserCredentials) => {
-    saveUser(credentials);
-    setUser(credentials);
+  const register = useCallback(async (loginValue: string, password: string) => {
+    const { token } = await api.register(loginValue, password);
+    setToken(token);
+    setAuthenticatedState(true);
   }, []);
 
-  const login = useCallback((credentials: UserCredentials): boolean => {
-    const stored = getStoredUser();
-    if (!stored) return false;
-    if (stored.login === credentials.login && stored.password === credentials.password) {
-      setAuthenticated(true);
+  const login = useCallback(async (loginValue: string, password: string): Promise<{ success: true } | { success: false; error: LoginError }> => {
+    try {
+      const { token } = await api.login(loginValue, password);
+      setToken(token);
       setAuthenticatedState(true);
-      return true;
+      return { success: true };
+    } catch (e) {
+      const message = e instanceof Error ? e.message : '';
+      if (message === 'user_not_found') {
+        return { success: false, error: 'user_not_found' };
+      }
+      return { success: false, error: 'invalid_password' };
     }
-    return false;
   }, []);
 
   const logout = useCallback(() => {
-    authLogout();
+    clearToken();
     setAuthenticatedState(false);
   }, []);
 
   const value: AuthContextValue = {
     isAuthenticated: authenticated,
-    hasUser: !!user,
     register,
     login,
     logout,

@@ -1,7 +1,7 @@
 import './cart.scss';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { deleteFromCart } from '../../reducers/basketSlice';
+import { removeFromCart } from '../../reducers/basketSlice';
 
 interface BasketItemProps {
   id: number;
@@ -17,13 +17,15 @@ function BasketItem({ id, idx, img, title, price, handleLink }: BasketItemProps)
 
   const handleDelete = (e: React.MouseEvent) => {
     e.stopPropagation();
-    dispatch(deleteFromCart(idx));
+    dispatch(removeFromCart(idx));
   };
+
+  const imgSrc = img.startsWith('/') ? img : `/${img}`;
 
   return (
     <div className="Cart-item" onClick={handleLink}>
       <Link to={`/product/${id}`} className="Link-item">
-        <img src={img} className="Cart-img" alt="food" />
+        <img src={imgSrc} className="Cart-img" alt="food" />
         <h2 className="Cart-item-title">{title}</h2>
       </Link>
       <span className="Cart-price">{price} ₽</span>
